@@ -5,7 +5,6 @@ import java.util.List;
 
 public class PrimeFinderThread extends Thread{
 
-	
 	int a,b;
 	
 	private List<Integer> primes;
@@ -19,11 +18,22 @@ public class PrimeFinderThread extends Thread{
 
         @Override
 	public void run(){
-            for (int i= a;i < b;i++){						
+            for (int i= a;i < b;i++){
+                synchronized (this){
+                    while(Control.getIsPaused().get()){
+                        try {
+                            this.wait();
+                        } catch (Exception e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
                 if (isPrime(i)){
                     primes.add(i);
-                    System.out.println(i);
+                    Control.addAmountPrimes();
+                    //System.out.println(i);
                 }
+                Control.addCountedNumber();
             }
 	}
 	
