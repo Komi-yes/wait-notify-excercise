@@ -15,7 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Control extends Thread {
     private final static int NTHREADS = 3;
     private final static int MAXVALUE = 30000000;
-    private final static int TMILISECONDS = 5000;
+    private final static int TMILISECONDS = 1000;
     private static AtomicBoolean isPaused = new AtomicBoolean(true);
     private static AtomicInteger amountPrimes = new AtomicInteger(0);
     private static AtomicInteger verifiedNumbers = new AtomicInteger(0);
@@ -48,7 +48,6 @@ public class Control extends Thread {
             pft[i].start();
         }
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Presiona Enter para comenzar");
         while(verifiedNumbers.get() < MAXVALUE) {
             if(verifiedNumbers.get() ==0){
                 System.out.println("Presiona Enter para comenzar");
